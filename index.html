@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>DIME Needs Analysis</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- jsPDF + html2canvas -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f3f4f6;
+    padding: 20px;
+    margin: 0;
+}
+h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    border-left: 5px solid #3B82F6;
+    padding-left: 10px;
+    margin: 20px 0 10px;
+}
+label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    margin-bottom: 15px;
+}
+.summary-box {
+    background: #e0ecff;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #1e40af;
+}
+button {
+    background: #3B82F6;
+    color: white;
+    padding: 14px 22px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+button:hover {
+    background: #2563eb;
+}
+
+/* PDF layout */
+#pdf-content {
+    padding: 30px;
+    font-size: 14px;
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    color: black;
+}
+#pdf-content h2 {
+    color: #3B82F6;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+th, td {
+    border: 1px solid #c8c8c8;
+    padding: 8px;
+}
+th {
+    background: #e5f0ff;
+    font-weight: 700;
+}
+.section-header {
+    background: #cfe0ff;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>DIME Needs Analysis</h1>
+
+    <div class="grid-2">
+        <!-- CLIENT 1 -->
+        <div class="card">
+            <h2>Client 1</h2>
+            <label>Name</label><input id="name1" oninput="calculate()">
+
+            <div class="section-title">Debt</div>
+            <label>Credit Card</label><input id="cc1" type="number" oninput="calculate()">
+            <label>Car Loans</label><input id="car1" type="number" oninput="calculate()">
+            <label>Other Debt</label><input id="other1" type="number" oninput="calculate()">
+
+            <div class="section-title">Income</div>
+            <label>Annual Income</label><input id="income1" type="number" oninput="calculate()">
+            <label>Years to Replace</label><input id="years1" type="number" value="5" oninput="calculate()">
+
+            <div class="section-title">Mortgage</div>
+            <label>Residential Mortgage</label><input id="res1" type="number" oninput="calculate()">
+
+            <div class="section-title">Education</div>
+            <label>Total Education Costs</label><input id="edu1" type="number" oninput="calculate()">
+
+            <div class="section-title">Other</div>
+            <label>Funeral Costs</label><input id="fun1" type="number" oninput="calculate()">
+            <label>Superannuation</label><input id="sup1" type="number" oninput="calculate()">
+
+            <div class="summary-box">
+                Life: <span id="life1">0</span><br>
+                TPD: <span id="tpd1">0</span><br>
+                Trauma: <span id="trauma1">0</span><br>
+                Income Protection: <span id="ip1">0</span>/month
+            </div>
+        </div>
+
+        <!-- CLIENT 2 -->
+        <div class="card">
+            <h2>Client 2</h2>
+            <label>Name</label><input id="name2" oninput="calculate()">
+
+            <div class="section-title">Debt</div>
+            <label>Credit Card</label><input id="cc2" type="number" oninput="calculate()">
+            <label>Car Loans</label><input id="car2" type="number" oninput="calculate()">
+            <label>Other Debt</label><input id="other2" type="number" oninput="calculate()">
+
+            <div class="section-title">Income</div>
+            <label>Annual Income</label><input id="income2" type="number" oninput="calculate()">
+            <label>Years to Replace</label><input id="years2" type="number" value="5" oninput="calculate()">
+
+            <div class="section-title">Mortgage</div>
+            <label>Residential Mortgage</label><input id="res2" type="number" oninput="calculate()">
+
+            <div class="section-title">Education</div>
+            <label>Total Education Costs</label><input id="edu2" type="number" oninput="calculate()">
+
+            <div class="section-title">Other</div>
+            <label>Funeral Costs</label><input id="fun2" type="number" oninput="calculate()">
+            <label>Superannuation</label><input id="sup2" type="number" oninput="calculate()">
+
+            <div class="summary-box">
+                Life: <span id="life2">0</span><br>
+                TPD: <span id="tpd2">0</span><br>
+                Trauma: <span id="trauma2">0</span><br>
+                Income Protection: <span id="ip2">0</span>/month
+            </div>
+        </div>
+    </div>
+
+    <button onclick="createPDF()">Download PDF</button>
+</div>
+
+<!-- PDF CONTENT BUILDER -->
+<div id="pdf-content" style="position:absolute; left:-9999px; top:-9999px;"></div>
+
+<script>
+function toNum(id){ return Number(document.getElementById(id).value || 0); }
+
+function calculate(){
+    let t1 = toNum("cc1")+toNum("car1")+toNum("other1") + toNum("income1")*toNum("years1") + toNum("res1")+toNum("edu1")+toNum("fun1") - toNum("sup1");
+    let t2 = toNum("cc2")+toNum("car2")+toNum("other2") + toNum("income2")*toNum("years2") + toNum("res2")+toNum("edu2")+toNum("fun2") - toNum("sup2");
+
+    let life1=t1, life2=t2;
+    let tpd1=life1*0.5, tpd2=life2*0.5;
+    let trauma1=toNum("income1"), trauma2=toNum("income2");
+    let ip1=Math.round(toNum("income1")*0.75/12), ip2=Math.round(toNum("income2")*0.75/12);
+
+    document.getElementById("life1").innerText=life1.toLocaleString();
+    document.getElementById("tpd1").innerText=tpd1.toLocaleString();
+    document.getElementById("trauma1").innerText=trauma1.toLocaleString();
+    document.getElementById("ip1").innerText=ip1.toLocaleString();
+
+    document.getElementById("life2").innerText=life2.toLocaleString();
+    document.getElementById("tpd2").innerText=tpd2.toLocaleString();
+    document.getElementById("trauma2").innerText=trauma2.toLocaleString();
+    document.getElementById("ip2").innerText=ip2.toLocaleString();
+
+    return {life1,life2,tpd1,tpd2,trauma1,trauma2,ip1,ip2};
+}
+
+async function createPDF(){
+    const d = calculate();
+    const name1 = document.getElementById("name1").value || "";
+    const name2 = document.getElementById("name2").value || "";
+
+    document.getElementById("pdf-content").innerHTML = `
+        <h2>DIME Needs Analysis</h2>
+        <table>
+            <tr><th></th><th>${name1}</th><th>${name2}</th></tr>
+
+            <tr class="section-header"><td colspan="3">DEBT</td></tr>
+            <tr><td>Credit Card</td><td>${toNum("cc1")}</td><td>${toNum("cc2")}</td></tr>
+            <tr><td>Car Loans</td><td>${toNum("car1")}</td><td>${toNum("car2")}</td></tr>
+            <tr><td>Other Debt</td><td>${toNum("other1")}</td><td>${toNum("other2")}</td></tr>
+
+            <tr class="section-header"><td colspan="3">INCOME</td></tr>
+            <tr><td>Annual Income</td><td>${toNum("income1")}</td><td>${toNum("income2")}</td></tr>
+            <tr><td>Years to Replace</td><td>${toNum("years1")}</td><td>${toNum("years2")}</td></tr>
+            <tr><td>Total Income Replacement</td>
+                <td>${(toNum("income1")*toNum("years1")).toLocaleString()}</td>
+                <td>${(toNum("income2")*toNum("years2")).toLocaleString()}</td>
+            </tr>
+
+            <tr class="section-header"><td colspan="3">MORTGAGE</td></tr>
+            <tr><td>Residential Mortgage</td><td>${toNum("res1")}</td><td>${toNum("res2")}</td></tr>
+
+            <tr class="section-header"><td colspan="3">EDUCATION</td></tr>
+            <tr><td>Total Education Costs</td><td>${toNum("edu1")}</td><td>${toNum("edu2")}</td></tr>
+
+            <tr class="section-header"><td colspan="3">OTHER</td></tr>
+            <tr><td>Funeral Costs</td><td>${toNum("fun1")}</td><td>${toNum("fun2")}</td></tr>
+            <tr><td>Superannuation</td><td>${toNum("sup1")}</td><td>${toNum("sup2")}</td></tr>
+
+            <tr class="section-header"><td colspan="3">TOTAL NEEDS</td></tr>
+            <tr><td>Total</td><td>${d.life1.toLocaleString()}</td><td>${d.life2.toLocaleString()}</td></tr>
+
+            <tr class="section-header"><td colspan="3">COVER REQUIRED</td></tr>
+            <tr><td>Life Cover</td><td>${d.life1.toLocaleString()}</td><td>${d.life2.toLocaleString()}</td></tr>
+            <tr><td>TPD</td><td>${d.tpd1.toLocaleString()}</td><td>${d.tpd2.toLocaleString()}</td></tr>
+            <tr><td>Trauma</td><td>${d.trauma1.toLocaleString()}</td><td>${d.trauma2.toLocaleString()}</td></tr>
+            <tr><td>Income Protection</td><td>${d.ip1}/m</td><td>${d.ip2}/m</td></tr>
+        </table>
+    `;
+
+    const element = document.getElementById("pdf-content");
+
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+    const pageWidth = 210;
+    const imgWidth = pageWidth - 20;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+    pdf.save("DIME_Needs_Analysis.pdf");
+}
+</script>
+
+</body>
+</html>
