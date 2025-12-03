@@ -13,103 +13,115 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root{
+    --bg: #f7fafc;
+    --card: #ffffff;
+    --accent: #2563eb;
+    --muted: #6b7280;
+    --surface: #f1f5f9;
+}
+html,body{height:100%;}
 body {
-    font-family: 'Inter', sans-serif;
-    background: #f3f4f6;
-    padding: 20px;
-    margin: 0;
+    margin:0;
+    padding:28px 18px;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    background: linear-gradient(180deg,var(--bg), #eef2ff 120px);
+    color:#0f172a;
+    -webkit-font-smoothing:antialiased;
 }
-h1 {
-    text-align: center;
-    font-size: 32px;
-    font-weight: 700;
+.container{
+    max-width:1100px;
+    margin:0 auto;
 }
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+h1{
+    text-align:center;
+    margin:0 0 20px 0;
+    font-size:28px;
+    color:var(--accent);
+    letter-spacing:0.2px;
 }
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+.grid-2{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+    align-items:start;
 }
-.card {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+@media (max-width:880px){
+    .grid-2{grid-template-columns:1fr;}
 }
-.section-title {
-    font-size: 20px;
-    font-weight: 700;
-    border-left: 5px solid #3B82F6;
-    padding-left: 10px;
-    margin: 20px 0 10px;
+.card{
+    background:var(--card);
+    padding:18px;
+    border-radius:12px;
+    box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    border:1px solid rgba(15,23,42,0.03);
 }
-label {
-    font-weight: 600;
-    display: block;
-    margin-bottom: 5px;
+.card h2{margin:0 0 10px 0;font-size:18px;color:#0b1220}
+.section-title{
+    display:inline-block;
+    margin:16px 0 8px 0;
+    font-size:12px;
+    font-weight:700;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.6px;
+    padding-left:10px;
+    border-left:4px solid rgba(37,99,235,0.15);
 }
-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #d1d5db;
-    margin-bottom: 15px;
+label{display:block;margin-bottom:6px;color:var(--muted);font-weight:600;font-size:13px}
+input[type="number"], input[type="text"], input{
+    width:100%;
+    padding:10px 12px;
+    border-radius:8px;
+    border:1px solid #e6e9ee;
+    background:white;
+    font-size:14px;
+    color:#0b1220;
+    box-sizing:border-box;
+    margin-bottom:14px;
 }
-.summary-box {
-    background: #e0ecff;
-    padding: 12px;
-    border-radius: 8px;
-    font-weight: 600;
-    color: #1e40af;
+input:focus{outline:none;box-shadow:0 4px 14px rgba(37,99,235,0.08);border-color:var(--accent)}
+.summary-box{
+    margin-top:6px;
+    background: linear-gradient(180deg,#f8fbff,#eef8ff);
+    padding:12px;
+    border-radius:8px;
+    color:#05204a;
+    font-weight:700;
+    font-size:14px;
+    line-height:1.4;
 }
-button {
-    background: #3B82F6;
-    color: white;
-    padding: 14px 22px;
-    border-radius: 8px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 25px;
+.summary-box span{font-weight:800}
+button{
+    display:block;
+    margin:28px auto 0;
+    background:var(--accent);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:10px;
+    border:none;
+    font-size:15px;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(37,99,235,0.12);
 }
-button:hover {
-    background: #2563eb;
-}
+button:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(37,99,235,0.16)}
 
-/* PDF layout */
-#pdf-content {
-    padding: 30px;
-    font-size: 14px;
-    width: 210mm;
-    min-height: 297mm;
-    background: white;
-    color: black;
+/* PDF layout (kept printable sizing) */
+#pdf-content{
+    padding:28px;
+    font-size:13px;
+    width:210mm;
+    min-height:297mm;
+    background:white;
+    color:#061026;
 }
-#pdf-content h2 {
-    color: #3B82F6;
-    margin-bottom: 10px;
-    font-size: 22px;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-th, td {
-    border: 1px solid #c8c8c8;
-    padding: 8px;
-}
-th {
-    background: #e5f0ff;
-    font-weight: 700;
-}
-.section-header {
-    background: #cfe0ff;
-    font-weight: bold;
-}
+#pdf-content h2{color:var(--accent);margin-bottom:8px;font-size:20px}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+th, td{border:1px solid #e6edf8;padding:10px;text-align:left}
+th{background:#f1f7ff;font-weight:700}
+.section-header{background:#eef6ff;font-weight:700;text-transform:uppercase}
+
 </style>
 </head>
 
